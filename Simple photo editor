@@ -1,0 +1,140 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+    //PIERWSZA CZESC //
+/*/!/*/ FILE *odczyt = fopen("l500.ppm","rt");
+    FILE *zapis = fopen("maly.ppm","wt");
+/*/!/*/ const int  WIELKOSC = 500; //zmienna wykorzystywana w tablicy//
+    char s[50];//tablica do pierwszych 3 linijek//
+    int i;
+    for (i=1;i<=3;i++){// przepisuje 3 pierwsze linijki do pliku maly//
+        fgets(s,40,odczyt);
+        fprintf(zapis,s);
+    }
+
+    //DRUGA CZESC //
+    short a[WIELKOSC][WIELKOSC][3];//Ai,Bi = 3 RGB//
+    int j,k;
+        for(i=0; i<WIELKOSC; i++){
+        for(j=0; j<WIELKOSC; j++){
+        for(k=0; k<3; k++){
+            fgets(s, 40, odczyt);
+            a[i][j][k] = atoi(s);//atoi zamienia mi slowo na liczbe//
+                            }}}
+
+    printf("Wybierz opcje:\n\n1. Negacja koloru\n2. Obraz czarno-bialy\n3. Usun kolor\n4. Obroc obraz\n\n");
+    printf("Wpisz liczbe: ");
+    int q;
+    scanf("%i",&q);
+
+    switch(q){
+            case 1:{
+    printf("Wybierz kolor:\n\n1. Czerwony\n2. Zielony\n3. Niebieski\n\n");
+    printf("Wpisz liczbe:  ");
+    int w;
+    scanf("%i",&w);
+
+
+                switch(w){
+                        case 1:{
+                    for(i=0; i<WIELKOSC; i++){
+                    for(j=0; j<WIELKOSC; j++){
+                                a[i][j][0] = 255-a[i][j][0];
+                                fprintf(zapis,"%d\n", a[i][j][0]);
+                                fprintf(zapis,"%d\n", a[i][j][1]);
+                                fprintf(zapis,"%d\n", a[i][j][2]);
+                            }}
+
+            break;}
+                        case 2:{
+                            for(i=0; i<WIELKOSC; i++){
+                            for(j=0; j<WIELKOSC; j++){
+                                a[i][j][1] = 255-a[i][j][1];
+                                fprintf(zapis,"%d\n", a[i][j][0]);
+                                fprintf(zapis,"%d\n", a[i][j][1]);
+                                fprintf(zapis,"%d\n", a[i][j][2]);
+                            }}
+
+            break;}
+                    case 3:{
+                            for(i=0; i<WIELKOSC; i++){
+                            for(j=0; j<WIELKOSC; j++){
+                                a[i][j][2] = 255-a[i][j][2];
+                                fprintf(zapis,"%d\n", a[i][j][0]);
+                                fprintf(zapis,"%d\n", a[i][j][1]);
+                                fprintf(zapis,"%d\n", a[i][j][2]);
+                            }}
+
+                    break;}
+
+        break;}
+}
+        case 2:{
+for(i=0; i<WIELKOSC; i++){
+for(j=0; j<WIELKOSC; j++){
+    a[i][j][0] = round((a[i][j][0]+a[i][j][1]+a[i][j][2])/3);//round zaaokragla liczbe //
+    fprintf(zapis,"%d\n", a[i][j][0]);
+    fprintf(zapis,"%d\n", a[i][j][0]);
+    fprintf(zapis,"%d\n", a[i][j][0]);
+                            }}
+
+        break;}
+        case 3:{
+printf("Jaki kolor chcesz usunac:\n\n1. Czerwony\n2. Zielony\n3. Niebieskie\n\n");
+printf("Wpisz liczbe:  ");
+int e;
+scanf("%i",&e);
+
+                switch(e){
+                    case 1:{
+                            for(i=0; i<WIELKOSC; i++){
+                            for(j=0; j<WIELKOSC; j++){
+                                a[i][j][0] = 0;
+                                fprintf(zapis,"%d\n", a[i][j][0]);
+                                fprintf(zapis,"%d\n", a[i][j][1]);
+                                fprintf(zapis,"%d\n", a[i][j][2]);
+                            }}
+
+                    break;}
+                    case 2:{
+                        for(i=0; i<WIELKOSC; i++){
+                        for(j=0; j<WIELKOSC; j++){
+                                a[i][j][1] = 0;
+                                fprintf(zapis,"%d\n", a[i][j][0]);
+                                fprintf(zapis,"%d\n", a[i][j][1]);
+                                fprintf(zapis,"%d\n", a[i][j][2]);
+                            }}
+
+                    break;}
+                    case 3:{
+                        for(i=0; i<WIELKOSC; i++){
+                        for(j=0; j<WIELKOSC; j++){
+                                a[i][j][2] = 0;
+                                fprintf(zapis,"%d\n", a[i][j][0]);
+                                fprintf(zapis,"%d\n", a[i][j][1]);
+                                fprintf(zapis,"%d\n", a[i][j][2]);
+                            }}
+
+                    break;}
+
+}
+
+        break;}
+        case 4:{
+            for(i=0; i<WIELKOSC; i++){
+            for(j=0; j<WIELKOSC; j++){
+                    fprintf(zapis,"%d\n", a[j][i][0]);
+                    fprintf(zapis,"%d\n", a[j][i][1]);
+                    fprintf(zapis,"%d\n", a[j][i][2]);
+                            }}
+
+        break;}
+}
+
+    fclose(odczyt);
+    fclose(zapis);
+    return 0;
+}
