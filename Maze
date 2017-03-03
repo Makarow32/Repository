@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <stdbool.h>
+
+
+int lukas(int n)
+{
+    if(n==1)
+        return 2;
+    else if (n==2)
+        return 1;
+    else return lukas(n-1)+lukas(n-2);
+}
+
+
+char droga[100][100];
+
+bool sciezka(int x1, int y1, int x, int y)
+{
+
+    if(x1>x || x1<0 ||y1>y || y1<0)
+            return false;
+    else if(x1 == 0 && y1 == 0)
+        {
+            droga[x1][y1]='+';
+            return true;
+        }
+    else if(droga[x1][y1] == 'x' || droga[x1][y1] == '+')
+        {
+        return false;
+        }
+    droga[x1][y1]='+';
+
+    if(sciezka(x1+1, y1, x, y) == true)
+        {
+        return true;
+        }
+    else if(sciezka(x1-1, y1, x, y) == true)
+        {
+        return true;
+        }
+    else if(sciezka(x1, y1-1, x, y) == true)
+        {
+        return true;
+        }
+    else if(sciezka(x1, y1+1, x, y) == true)
+        {
+        return true;
+        }
+}
+
+
+
+int main()
+{
+
+int n,i;
+ puts("Podaj liczbe n:");
+ scanf("%d",&n);
+ printf("\nlukas(%d) = %d\n",n,lukas(n));
+ puts("**************");
+ puts("Liczby Lukasa:");
+ for(i=1;i<=n;i++)
+ {
+     printf("%d = %d\n",i,lukas(i));
+ }
+ printf("\n\n********************\n");
+
+ ///////////////////////////////////////////////
+ int x1 , y1, x, y,j;
+
+printf("Podaj wymiar x = ");
+scanf("%d",&x);
+printf("\n\n********************\n");
+printf("\nPodaj wymiar y = ");
+scanf("%d",&y);
+printf("\n\n********************\n");
+
+        for (i=0;i<y; i++)
+        {
+            for (j=0; j<x; j++)
+            {
+                printf("(%d,%d) = ",i,j);
+                scanf("%s",&droga[i][j]);
+            }
+        }
+
+printf("\n*****  Twoj Labirynt  *****\n");
+
+    for (i=0;i<y; i++)
+    {
+    for (j=0; j<x; j++)
+        {
+        printf("%c",droga[i][j]);
+        }
+    printf("\n");
+    }
+
+    printf("\n\n********************\n");
+
+    puts("Podaj wspolrzedne poczatku drogi: ");
+    printf("x = ");
+    scanf("%d",&x1);
+    printf("\ny = ");
+    scanf("%d",&y1);
+    printf("\n\n********************\n");
+
+    sciezka(x1,y1, x, y);
+
+    for (i=0; i<y; i++)
+    {
+    for (j=0; j<x; j++)
+        {
+        printf("%c",droga[i][j]);
+        }
+    printf("\n");
+    }
+
+    return 0;
+}
